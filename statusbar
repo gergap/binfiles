@@ -1,0 +1,57 @@
+#!/bin/bash
+# (C) 2020 Gerhard Gappmeier
+# Simple DWM statusbar
+BAT="/sys/class/power_supply/BAT0"
+# while loop to update statusbar with some goodies
+while true; do
+    # cpu load average
+    AVG=$( cat /proc/loadavg | cut -d ' ' -f -3 )
+    INFO="CPU Load: $AVG"
+    # memory
+    memfreak2=`grep MemFree /proc/meminfo | awk '{ print $2 }'`;
+    memfreak=$(( $memfreak2/1024 ));
+    INFO="$INFO | Mem: $memfreak MB"
+    # volume
+    VOL=$( amixer get Master | tail -1 | awk '{ print $5 }' | tr -d '[]' )
+    INFO="$INFO | Vol: $VOL"
+    # battery status parsing
+    if [ -f $BAT ]; then
+        battotal=`cat $BAT/charge_full`;
+        batfree=`cat $BAT/charge_now`;
+        battper=$(( 100*$batfree/$battotal ));
+        battery=`cat $BAT/status`;
+        # use fontawesome:      
+        if [ "$battery" == "Charging" ]; then
+            batt=""
+        elif [ $battper -gt 85 ]; then
+            batt=""
+        elif [ $battper -gt 60 ]; then
+            batt=""
+        elif [ $battper -gt 35 ]; then
+            batt=""
+        elif [ $battper -gt 15 ]; then
+            batt=""
+        else
+            batt=""
+        fi
+        INFO="$INFO | $battper% $batt"
+    fi
+    # network stats in Bytes
+    if [ -x /usr/bin/dstat ]; then
+        NW=$( dstat -n --nocolor 1 2 | tail -1 | awk '{ print $1, $2 }' )
+        INFO="$INFO | Net(R,S): $NW"
+    fi
+    # detect VPN
+    if [ -d /sys/devices/virtual/net/wg0 ]; then
+        INFO="$INFO | VPN: on"
+    else
+        INFO="$INFO | VPN: off"
+    fi
+    # date and time
+    CLK=$( date +'%a %b %d %R:%S' )
+    INFO="$INFO | $CLK"
+
+    # update status
+    xsetroot -name "$INFO"
+    sleep 1
+done

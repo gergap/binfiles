@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+LANG= /usr/bin/antiword -a a4 "$1" > /tmp/antiword.pdf
+/usr/bin/evince /tmp/antiword.pdf
+rm /tmp/antiword.pdf
+

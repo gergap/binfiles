@@ -1,0 +1,12 @@
+[Unit]
+Description=CCache on TMPFS
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/home/gergap/bin/ccache-enable-tmpfs
+ExecStop=/home/gergap/bin/ccache-make-persistent
+TimeoutSec=60
+
+[Install]
+WantedBy=multi-user.target

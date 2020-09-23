@@ -1,0 +1,7 @@
+#!/bin/bash
+# (C) 2020 Gerhard Gappmeier <gerhard.gappmeier@ascolab.com>
+# Description: Creates a persistend copy of ~/.ccache, so that we can
+# move all data to a tmpfs on startup.
+mkdir -p $HOME/.ccache-persistent
+rsync -a $HOME/.ccache/* $HOME/.ccache-persistent
+mountpoint -q $HOME/.ccache && umount $HOME/.ccache

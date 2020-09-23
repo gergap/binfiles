@@ -1,0 +1,12 @@
+#!/bin/bash
+# (C) 2020 Gerhard Gappmeier
+# Installs a perl package via apt.
+# Perl packages like Foo::Bar are usually called
+# libfoo-bar-perl on Debian (but not always).
+# This makes simplifies installing such packages.
+# It it not found you need to apt-search for it.
+# As a last resort you need to use cpan.
+
+PKG_NAME="lib$(echo "$1" |  tr "A-Z" "a-z" | sed 's/::/-/g')-perl"
+sudo apt-get install $PKG_NAME
+

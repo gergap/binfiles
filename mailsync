@@ -1,0 +1,9 @@
+#!/bin/bash
+
+mbsync -a
+notmuch new
+notmuch tag +redmine -inbox -- from:redmine@ascolab.com
+notmuch tag +support -inbox -- from:redmine@unifiedautomation.com
+notmuch tag +phabricator -inbox -- from:phabricator@ascolab.com
+notmuch tag +kropatz -inbox -- from:post@stb-kropacz.de
+

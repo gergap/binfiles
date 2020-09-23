@@ -1,0 +1,2 @@
+#!/bin/bash
+bluetoothctl disconnect EC:66:D1:A3:71:29

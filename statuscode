@@ -1,0 +1,3 @@
+#!/bin/bash 
+grep --color -ne "$*" $HOME/work/embeddedstack/src/uabase/statuscodes.h
+
