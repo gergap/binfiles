@@ -1,4 +1,26 @@
 #!/usr/bin/env bash
+# (C) 2020 Gerhard Gappmeier
+# this script is based on the example script from
+# https://tools.suckless.org/dmenu/scripts/
+#
+# However, I extended it to type login name and password for
+# simple logins to websites.
+# Therefor the pass entry should look like this:
+#   <password>
+#   login: <loginame>
+# The 1st line contains the password as always..
+# The 2nd line optionally contains a login name with some description
+# separated by a colon.
+# Operation modes:
+#  1. without arguments: copies password to clipboard
+#  2. with --type option: types login credentials
+#  2a: when a login name is available: types <login> <tab> <password> <enter>
+#  2b: when a login name is not available: types <password> <enter>
+# Security: You should change the owner of the script to root and make it
+# readonly, world executable. So no evil program can change the script to
+# intercept passwords:
+#  sudo chown root:root passmenu
+#  sudo chmod 755 passmenu
 
 shopt -s nullglob globstar
 
