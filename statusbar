@@ -2,6 +2,7 @@
 # (C) 2020 Gerhard Gappmeier
 # Simple DWM statusbar
 BAT="/sys/class/power_supply/BAT0"
+NETDEV="wlp59s0"
 # while loop to update statusbar with some goodies
 while true; do
     # cpu load average
@@ -10,12 +11,12 @@ while true; do
     # memory
     memfreak2=`grep MemFree /proc/meminfo | awk '{ print $2 }'`;
     memfreak=$(( $memfreak2/1024 ));
-    INFO="$INFO | Mem: $memfreak MB"
+    INFO="$INFO | Free Mem: $memfreak MB"
     # volume
     VOL=$( amixer get Master | tail -1 | awk '{ print $5 }' | tr -d '[]' )
     INFO="$INFO | Vol: $VOL"
     # battery status parsing
-    if [ -f $BAT ]; then
+    if [ -d $BAT ]; then
         battotal=`cat $BAT/charge_full`;
         batfree=`cat $BAT/charge_now`;
         battper=$(( 100*$batfree/$battotal ));
@@ -43,6 +44,9 @@ while true; do
     else
         INFO="$INFO | \x06 \x01"
     fi
+    # ip address
+    IP=$(/sbin/ifconfig $NETDEV | awk '{ if (NR==2) print $2 }')
+    INFO="$INFO | IP: $IP"
     # network stats in Bytes
     if [ -x /usr/bin/dstat ]; then
         NW=$( dstat -n --nocolor 1 2 | tail -1 | awk '{ print $1, $2 }' )
