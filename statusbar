@@ -28,13 +28,20 @@ while true; do
         elif [ $battper -gt 60 ]; then
             batt=""
         elif [ $battper -gt 35 ]; then
-            batt=""
+            batt="\x03\x01"
         elif [ $battper -gt 15 ]; then
-            batt=""
+            batt="\x04\x01"
         else
-            batt=""
+            batt="\x04\x01"
         fi
         INFO="$INFO | $battper% $batt"
+    fi
+    # headphone status:  
+    status=`headphone_status`
+    if [ "$status" == "connected" ]; then
+        INFO="$INFO | \x05 \x01"
+    else
+        INFO="$INFO | \x06 \x01"
     fi
     # network stats in Bytes
     if [ -x /usr/bin/dstat ]; then
@@ -52,6 +59,7 @@ while true; do
     INFO="$INFO | $CLK"
 
     # update status
+    INFO=`echo -e "$INFO"`
     xsetroot -name "$INFO"
     sleep 1
 done
