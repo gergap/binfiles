@@ -1,0 +1,2 @@
+#!/bin/bash
+bluetoothctl info EC:66:D1:A3:71:29 | grep -q "Connected: yes" && echo "connected" || echo "not connected"
