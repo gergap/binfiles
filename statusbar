@@ -50,9 +50,9 @@ while true; do
     fi
     # detect VPN
     if [ -d /sys/devices/virtual/net/wg0 ]; then
-        INFO="$INFO | VPN: on"
+        INFO="$INFO | VPN: \x05on\x01"
     else
-        INFO="$INFO | VPN: off"
+        INFO="$INFO | VPN: \x06off\x01"
     fi
     # date and time
     CLK=$( date +'%a %b %d %R:%S' )
