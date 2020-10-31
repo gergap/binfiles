@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# check if yubikey is present
+ssh-add -l | grep -q 'cardno:000604887239' || exit 0
+
 mbsync -a
 notmuch new
 notmuch tag +redmine -inbox -- from:redmine@ascolab.com
