@@ -1,0 +1,14 @@
+#!/bin/bash
+# Toggle Wireguard VPN status.
+# Used in DWM shortcut to enable/disable VPN.
+# You need to setup password-less sudo for wg-quick
+# to make this working.
+# sudo visudo
+# <user> ALL = NOPASSWD: /use/bin/wg-quick
+
+if [ -d /sys/devices/virtual/net/wg0 ]; then
+    sudo /usr/bin/wg-quick down wg0
+else
+    sudo /usr/bin/wg-quick up wg0
+fi
+
