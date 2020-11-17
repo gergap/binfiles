@@ -6,4 +6,4 @@ cd "$SPECDIR"
 spec=$(find . -name "*.pdf" | dmenu -i)
 cd -
 [[ -n $spec ]] || exit
-evince "$SPECDIR/$spec"
+mupdf "$SPECDIR/$spec"
