@@ -7,14 +7,19 @@
 # simple logins to websites.
 # Therefor the pass entry should look like this:
 #   <password>
-#   login: <loginame>
+#   login: <username>
+#   mode: tab|enter
 # The 1st line contains the password as always..
-# The 2nd line optionally contains a login name with some description
+# The 2nd line optionally contains a user name with some description
+# The 3rd line optionally contains a mode. "tab" uses <tab> between <username>
+#   and <password>. "enter" uses <enter> for web pages which use two consecutive pages
+#   for username and password instead of two textboxes on the same page. If the
+#   mode line is missing it defaults to use <tab>.
 # separated by a colon.
 # Operation modes:
 #  1. without arguments: copies password to clipboard
 #  2. with --type option: types login credentials
-#  2a: when a login name is available: types <login> <tab> <password> <enter>
+#  2a: when a login name is available: types <username> <tab> <password> <enter>
 #  2b: when a login name is not available: types <password> <enter>
 # Security: You should change the owner of the script to root and make it
 # readonly, world executable. So no evil program can change the script to
@@ -42,13 +47,22 @@ password=$(printf '%s\n' "${password_files[@]}" | dmenu "$@")
 if [[ $typeit -eq 0 ]]; then
     pass show -c "$password" 2>/dev/null
 else
-    login=`pass show "$password" | awk '{ if (NR==2) { print $2 }}'`
-    pass=`pass show "$password" | awk '{ if (NR==1) { print $1 }}'`
-    if [ -z "$login"]; then
+    output=`pass show "$password"`
+    mode=`echo "$output" | awk '{ if (NR==3) { print $2 }}'`
+    login=`echo "$output" | awk '{ if (NR==2) { print $2 }}'`
+    pass=`echo "$output" | awk '{ if (NR==1) { print $1 }}'`
+    if [ -z "$login" ]; then
         # just type the password
         echo "$pass" | xdotool type --clearmodifiers --file -
     else
         # type login <tab> password
-        echo -e "$login\t$pass" | xdotool type --clearmodifiers --file -
+        if [ "$mode" == "enter" ]; then
+            echo -e "$login" | xdotool type --clearmodifiers --file -
+            sleep 1
+            echo -e "$pass" | xdotool type --clearmodifiers --file -
+        else
+            echo -e "$login\n$pass" | xdotool type --clearmodifiers --file -
+        fi
     fi
 fi
+
