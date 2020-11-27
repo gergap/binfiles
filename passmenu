@@ -61,7 +61,7 @@ else
             sleep 1
             echo -e "$pass" | xdotool type --clearmodifiers --file -
         else
-            echo -e "$login\n$pass" | xdotool type --clearmodifiers --file -
+            echo -e "$login\t$pass\n" | xdotool type --clearmodifiers --file -
         fi
     fi
 fi
