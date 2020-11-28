@@ -1,0 +1,27 @@
+#!/bin/bash
+v4l2-ctl --device=0 --set-ctrl=brightness=128
+v4l2-ctl --device=0 --set-ctrl=contrast=128
+# we need more saturation to look normal
+# the saturation changes depending on the exposure value
+v4l2-ctl --device=0 --set-ctrl=saturation=250
+# manual white balance
+v4l2-ctl --device=0 --set-ctrl=white_balance_temperature_auto=0
+v4l2-ctl --device=0 --set-ctrl=gain=0
+v4l2-ctl --device=0 --set-ctrl=power_line_frequency=1
+v4l2-ctl --device=0 --set-ctrl=white_balance_temperature=3200
+v4l2-ctl --device=0 --set-ctrl=sharpness=149
+v4l2-ctl --device=0 --set-ctrl=backlight_compensation=0
+# manual exposure
+v4l2-ctl --device=0 --set-ctrl=exposure_auto=1
+v4l2-ctl --device=0 --set-ctrl=exposure_absolute=624
+v4l2-ctl --device=0 --set-ctrl=exposure_auto_priority=0
+v4l2-ctl --device=0 --set-ctrl=pan_absolute=0
+v4l2-ctl --device=0 --set-ctrl=tilt_absolute=0
+# auto focus is ok
+v4l2-ctl --device=0 --set-ctrl=focus_auto=1
+#v4l2-ctl --device=0 --set-ctrl=focus_absolute=0
+v4l2-ctl --device=0 --set-ctrl=zoom_absolute=100
+#v4l2-ctl --device=0 --set-ctrl=zoom_absolute=120
+
+# play video
+#ffplay -f v4l2 -input_format mjpeg -i /dev/video4
