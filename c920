@@ -1,27 +1,59 @@
 #!/bin/bash
+### general camera settings
 v4l2-ctl --device=0 --set-ctrl=brightness=128
 v4l2-ctl --device=0 --set-ctrl=contrast=128
 # we need more saturation to look normal
 # the saturation changes depending on the exposure value
-v4l2-ctl --device=0 --set-ctrl=saturation=250
-# manual white balance
+v4l2-ctl --device=0 --set-ctrl=saturation=145
+
+### manual white balance
 v4l2-ctl --device=0 --set-ctrl=white_balance_temperature_auto=0
+# no gain to avoid noise, use proper lighting and matching exposure time
 v4l2-ctl --device=0 --set-ctrl=gain=0
+# 50 Hz in Europe
 v4l2-ctl --device=0 --set-ctrl=power_line_frequency=1
+# match your color temperature of the light
 v4l2-ctl --device=0 --set-ctrl=white_balance_temperature=3200
-v4l2-ctl --device=0 --set-ctrl=sharpness=149
+# no artifical sharpness filter, keep the default settings
+v4l2-ctl --device=0 --set-ctrl=sharpness=128
+# nope
 v4l2-ctl --device=0 --set-ctrl=backlight_compensation=0
-# manual exposure
+
+### manual exposure
 v4l2-ctl --device=0 --set-ctrl=exposure_auto=1
 v4l2-ctl --device=0 --set-ctrl=exposure_absolute=624
 v4l2-ctl --device=0 --set-ctrl=exposure_auto_priority=0
 v4l2-ctl --device=0 --set-ctrl=pan_absolute=0
 v4l2-ctl --device=0 --set-ctrl=tilt_absolute=0
-# auto focus is ok
-v4l2-ctl --device=0 --set-ctrl=focus_auto=1
-#v4l2-ctl --device=0 --set-ctrl=focus_absolute=0
+
+# disable autofocus to avoid any pumping
+v4l2-ctl --device=0 --set-ctrl=focus_auto=0
+# focus settings
+v4l2-ctl --device=0 --set-ctrl=focus_absolute=45
+# don't zoom at all
 v4l2-ctl --device=0 --set-ctrl=zoom_absolute=100
+# zoomed view (max. 120)
 #v4l2-ctl --device=0 --set-ctrl=zoom_absolute=120
 
 # play video
 #ffplay -f v4l2 -input_format mjpeg -i /dev/video4
+
+# The settings have been configured using guvcview.
+# The can be shown using v4l2-ctrl --list-ctrls
+#                     brightness 0x00980900 (int)    : min=0 max=255 step=1 default=128 value=128
+#                       contrast 0x00980901 (int)    : min=0 max=255 step=1 default=128 value=128
+#                     saturation 0x00980902 (int)    : min=0 max=255 step=1 default=128 value=145
+# white_balance_temperature_auto 0x0098090c (bool)   : default=1 value=0
+#                           gain 0x00980913 (int)    : min=0 max=255 step=1 default=0 value=0
+#           power_line_frequency 0x00980918 (menu)   : min=0 max=2 default=2 value=1
+#      white_balance_temperature 0x0098091a (int)    : min=2000 max=6500 step=1 default=4000 value=3201
+#                      sharpness 0x0098091b (int)    : min=0 max=255 step=1 default=128 value=128
+#         backlight_compensation 0x0098091c (int)    : min=0 max=1 step=1 default=0 value=0
+#                  exposure_auto 0x009a0901 (menu)   : min=0 max=3 default=3 value=1
+#              exposure_absolute 0x009a0902 (int)    : min=3 max=2047 step=1 default=250 value=624
+#         exposure_auto_priority 0x009a0903 (bool)   : default=0 value=0
+#                   pan_absolute 0x009a0908 (int)    : min=-36000 max=36000 step=3600 default=0 value=0
+#                  tilt_absolute 0x009a0909 (int)    : min=-36000 max=36000 step=3600 default=0 value=0
+#                 focus_absolute 0x009a090a (int)    : min=0 max=250 step=5 default=0 value=45
+#                     focus_auto 0x009a090c (bool)   : default=1 value=0
+#                  zoom_absolute 0x009a090d (int)    : min=100 max=500 step=1 default=100 value=100
