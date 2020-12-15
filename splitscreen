@@ -1,0 +1,21 @@
+#!/bin/bash
+# This scripts splits the 49" Ultrawide Screen from Samsung into
+# two virtual screens.
+# Screen Res: 5120x1440 (1190x340 mm)
+# Half Width: 2560 (595 mm)
+
+# physical screen
+display=DisplayPort-1
+
+if [ "$1" == "-d" ]; then
+    # delete virtual screens
+    xrandr --delmonitor VIRT-LEFT
+    xrandr --delmonitor VIRT-RIGHT
+    # trigger dwm refresh by changing resolution
+    xrandr --output $display --mode 2560x1440
+    xrandr --output $display --mode 5120x1440
+else
+    # create virtual screens
+    xrandr --setmonitor VIRT-LEFT 2560/595x1440/340+0+0 $display
+    xrandr --setmonitor VIRT-RIGHT 2560/595x1440/340+2560+0 none
+fi
