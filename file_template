@@ -2,7 +2,7 @@
 # (C) 2020 Gerhard Gappmeier
 # This script is based on an example from Damian Conway
 use 5.010;
-use warnings; 
+use warnings;
 use File::Basename;
 
 my $MODULE_TEMPLATE_FILE = "$ENV{HOME}/.module-starter/PBP/Module.pm";
@@ -11,6 +11,7 @@ my %INFO = (
     FILENAME      => $ARGV[0] || "NAME",
     'MODULE NAME' => $ARGV[0] || "MODULE::NAME",
     'RT NAME'     => $ARGV[0] || "MODULE-NAME",
+    'PROJECT'     => $ENV{PROJECT} || "one line to give the program's name and an idea of what it does.",
     INCLUDEGUARD  => "__FILE_H__",
     AUTHOR        => 'Gerhard Gappmeier',
     EMAIL         => 'gerhard.gappmeier@ascolab.com',
@@ -47,22 +48,22 @@ EOF
 
 my $GPL = << "EOF";
 /*****************************************************************************
- * one line to give the program's name and an idea of what it does.
+ * <PROJECT>
  * Copyright (C) <YEAR>  <AUTHOR> <<EMAIL_PRIV>>
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA.EOF
  *****************************************************************************/
 EOF
@@ -113,6 +114,7 @@ my %template_for = (
     '.pl' => \&gen_pl_file,
     '.pm' => \&gen_pm_file,
     '.c' => \&gen_c_file,
+    '.hpp' => \&gen_hpp_file,
     '.cpp' => \&gen_cpp_file,
     '.cxx' => \&gen_cpp_file,
     '.h' => \&gen_h_file,
@@ -137,7 +139,7 @@ use 5.020; use warnings; use autodie;
 # implementation here
 
 
-__END__ 
+__END__
 
 =head1 NAME
 
@@ -239,6 +241,8 @@ sub gen_h_file {
 #ifndef <INCLUDEGUARD>
 #define <INCLUDEGUARD>
 
+#include <platform/platform.h>
+
 UA_BEGIN_EXTERN_C
 
 // implementation here
@@ -256,6 +260,18 @@ sub gen_c_file {
 
 // implementation here
 
+END_TEMPLATE
+}
+
+sub gen_hpp_file {
+<<END_TEMPLATE
+<LICENSE>
+#ifndef <INCLUDEGUARD>
+#define <INCLUDEGUARD>
+
+// implementation here
+
+#endif /* <INCLUDEGUARD> */
 END_TEMPLATE
 }
 
