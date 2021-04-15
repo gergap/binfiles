@@ -107,7 +107,11 @@ for ($INFO{'INCLUDEGUARD'}) {
 if ($INFO{FILENAME} =~ m/main.(c|cpp|cxx)/) {
     $INFO{INCLUDE} = "";
 } else {
-    $INFO{INCLUDE} = "#include \"$basename.h\"";
+    if ($INFO{FILENAME} =~ m/.c$/) {
+        $INFO{INCLUDE} = "#include \"$basename.h\"";
+    } else {
+        $INFO{INCLUDE} = "#include \"$basename.hpp\"";
+    }
 }
 
 my %template_for = (
