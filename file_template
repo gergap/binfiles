@@ -22,7 +22,7 @@ my %INFO = (
 my $SLA = << "EOF";
 /*****************************************************************************
  *                                                                           *
- * Copyright (c) 2006-2020 Unified Automation GmbH. All rights reserved.     *
+ * Copyright (c) 2006-<YEAR> Unified Automation GmbH. All rights reserved.     *
  *                                                                           *
  * Software License Agreement ("SLA") Version 2.7                            *
  *                                                                           *
