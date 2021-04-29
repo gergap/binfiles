@@ -14,6 +14,8 @@ Overview:
 * statuscode: lookup UA statuscodes
 * viml: A wrapper for Vim which allows me to open files like `vim /path/to/file:1234` at the correct line number.
   This is convenient to open files printed in compiler output.
+* der2pem: converts X509v3 certificates from DER encoding to PEM
+* pem2der: converts X509v3 certificates from PEM encoding to DER
 
 ## CCache on tmpfs
 
