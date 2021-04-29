@@ -16,6 +16,7 @@ Overview:
   This is convenient to open files printed in compiler output.
 * der2pem: converts X509v3 certificates from DER encoding to PEM
 * pem2der: converts X509v3 certificates from PEM encoding to DER
+* yubikey-switch.sh: Let `gpg` forget the old Yubikey to fix issues when switching different Yubikeys.
 
 ## CCache on tmpfs
 
