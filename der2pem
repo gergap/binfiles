@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+if [ $# -ne 2 ]; then
+    echo "usage: $0 <derfile> <pemfile>"
+    exit 1
+fi
+
+openssl x509 -inform der -in $1 -out $2
+echo "Successfully created '$2'."
