@@ -2,7 +2,7 @@
 # (C) 2020 Gerhard Gappmeier
 # Simple DWM statusbar
 BAT="/sys/class/power_supply/BAT0"
-NETDEV="wlp59s0"
+NETDEV="wlp1s0"
 # while loop to update statusbar with some goodies
 while true; do
     # cpu load average
@@ -49,7 +49,7 @@ while true; do
     INFO="$INFO | IP: $IP"
     # network stats in Bytes
     if [ -x /usr/bin/dstat ]; then
-        NW=$( dstat -n --nocolor 1 2 | tail -1 | awk '{ print $1, $2 }' )
+        NW=$(dstat -n --nocolor 1 2 | tail -1 | awk '{ print $1, $2 }' )
         INFO="$INFO | Net(R,S): $NW"
     fi
     # detect VPN
