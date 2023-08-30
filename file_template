@@ -24,11 +24,11 @@ my $SLA = << "EOF";
  *                                                                           *
  * Copyright (c) 2006-<YEAR> Unified Automation GmbH. All rights reserved.     *
  *                                                                           *
- * Software License Agreement ("SLA") Version 2.7                            *
+ * Software License Agreement ("SLA") Version 2.8                            *
  *                                                                           *
  * Unless explicitly acquired and licensed from Licensor under another       *
  * license, the contents of this file are subject to the Software License    *
- * Agreement ("SLA") Version 2.7, or subsequent versions as allowed by the   *
+ * Agreement ("SLA") Version 2.8, or subsequent versions as allowed by the   *
  * SLA, and You may not copy or use this file in either source code or       *
  * executable form, except in compliance with the terms and conditions of    *
  * the SLA.                                                                  *
@@ -41,7 +41,7 @@ my $SLA = << "EOF";
  * language governing rights and limitations under the SLA.                  *
  *                                                                           *
  * The complete license agreement can be found here:                         *
- * http://unifiedautomation.com/License/SLA/2.7/                             *
+ * http://unifiedautomation.com/License/SLA/2.8/                             *
  *                                                                           *
  *****************************************************************************/
 EOF
