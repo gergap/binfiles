@@ -26,6 +26,7 @@ while getopts "r:c:s:h" opt; do
                 CODEC="h264_vaapi"
             elif [ "$OPTARG" == "hevc" ] || [ "$OPTARG" == "h265" ]; then
                 CODEC="hevc_vaapi"
+                CODEC="libx265"
             else
                 usage
                 exit 1
@@ -33,9 +34,13 @@ while getopts "r:c:s:h" opt; do
             ;;
         r)
             if [ "$OPTARG" == "1080p" ]; then
-                SCALE="w=1920:h=1080"
+                SCALE=",scale_vaapi=w=1920:h=1080"
             elif [ "$OPTARG" == "720p" ]; then
-                SCALE="w=1280:h=720"
+                SCALE=",scale_vaapi=w=1280:h=720"
+            elif [ "$OPTARG" == "600p" ]; then
+                SCALE=",scale_vaapi=w=800:h=600"
+            elif [ "$OPTARG" == "n" ]; then
+                SCALE=""
             else
                 usage
                 exit 1
@@ -61,5 +66,5 @@ else
     exit 1
 fi
 
-ffmpeg -vaapi_device $DEVICE -i "$INPUT" -vf "format=nv12,hwupload,scale_vaapi=$SCALE" -c:v $CODEC -f mp4 -rc_mode 1 -qp 25 "$OUTPUT"
+ffmpeg -vaapi_device $DEVICE -i "$INPUT" -vf "format=nv12,hwupload$SCALE" -c:v $CODEC -f mp4 -rc_mode 1 -qp 25 "$OUTPUT"
 
