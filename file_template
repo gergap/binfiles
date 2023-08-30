@@ -117,6 +117,7 @@ if ($INFO{FILENAME} =~ m/main.(c|cpp|cxx)/) {
 my %template_for = (
     '.pl' => \&gen_pl_file,
     '.pm' => \&gen_pm_file,
+    '.py' => \&gen_py_file,
     '.c' => \&gen_c_file,
     '.hpp' => \&gen_hpp_file,
     '.cpp' => \&gen_cpp_file,
@@ -237,6 +238,15 @@ END_TEMPLATE
 sub gen_pm_file {
     use Perl6::Slurp;
     return scalar slurp $MODULE_TEMPLATE_FILE;
+}
+
+sub gen_py_file { <<END_TEMPLATE
+#!/usr/bin/env python3
+# Copyright (c) <YEAR>, <AUTHOR> C<< <<EMAIL>> >>. All rights reserved.
+
+# implementation here
+print("Hello, World")
+END_TEMPLATE
 }
 
 sub gen_h_file {
