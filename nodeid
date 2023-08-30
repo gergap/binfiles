@@ -5,20 +5,20 @@ use strict;
 use Scalar::Util qw(looks_like_number);
 
 my $nodeid = $ARGV[0];
-my $filename = "$ENV{HOME}/work/embeddedstack/src/uabase/identifiers.h";
+my $filename = "$ENV{HOME}/work/devel/embeddedstack-master/src/uabase/identifiers.h";
 
 open(my $fh, $filename) or die("Could not open $filename: $!");
 
 if (looks_like_number($nodeid)) {
     foreach (<$fh>) {
-        if (/#define (UA_ID_\w+) $nodeid/) {
+        if (/#define (UA_ID_\w+) +$nodeid/) {
             printf("The NodeId $nodeid refers to $1\n");
             last;
         }
     }
 } else {
     foreach (<$fh>) {
-        if (/#define (UA_ID_\w*$nodeid\w*) (\d+)/i) {
+        if (/#define (UA_ID_\w*$nodeid\w*) +(\d+)/i) {
             printf("The node $1 has the nodeid $2\n");
         }
     }
