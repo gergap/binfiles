@@ -2,6 +2,7 @@
 # (C) 2020 Gerhard Gappmeier <gerhard.gappmeier@ascolab.com>
 # Description: Mount .ccache on tmpfs and load it from .ccache-persistent
 # On Installation execute ccache-make-persistent once to create this archive.
+mkdir -p ~/.ccache
 mountpoint -q $HOME/.ccache && { echo ".ccached already mounted"; exit 0; }
 mount $HOME/.ccache
 rsync -a $HOME/.ccache-persistent/* $HOME/.ccache/
