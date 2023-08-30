@@ -1,7 +1,7 @@
 #!/bin/bash
 # (C) 2020 Gerhard Gappmeier
 # Simple dmenu script to open an OPC UA Spec.
-SPECDIR="/home/gergap/Documents/OPC Specifications/OPC Unified Architecture"
+SPECDIR="/home/gergap/Documents/OPCSpecifications"
 cd "$SPECDIR"
 spec=$(find . -name "*.pdf" | dmenu -i)
 cd -
