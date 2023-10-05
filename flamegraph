@@ -1,0 +1,22 @@
+#!/bin/bash
+FLAMEGRAPH_DIR=~/work/FlameGraph
+set -e
+
+if [ ! -d "$FLAMEGRAPH_DIR" ]; then
+    cd ~/work
+    git clone https://github.com/brendangregg/FlameGraph.git
+    cd -
+fi
+
+# record profiling data
+perf record -g $*
+perf script > out.perf
+
+# post-process data
+$FLAMEGRAPH_DIR/stackcollapse-perf.pl out.perf > out.folded
+
+# generate SVG
+$FLAMEGRAPH_DIR/flamegraph.pl out.folded > flamegraph.svg
+
+/usr/bin/firefox-esr flamegraph.svg
+
