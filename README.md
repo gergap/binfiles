@@ -17,6 +17,11 @@ Overview:
 * der2pem: converts X509v3 certificates from DER encoding to PEM
 * pem2der: converts X509v3 certificates from PEM encoding to DER
 * yubikey-switch.sh: Let `gpg` forget the old Yubikey to fix issues when switching different Yubikeys.
+* flamegraph: Easily profile an application using Linux perf tool and visualize using FlameGraphs.
+
+<p align="center">
+<img src="flamegraph.svg"/>
+</p>
 
 ## CCache on tmpfs
 

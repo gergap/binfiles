@@ -1,4 +1,6 @@
 #!/bin/bash
+# Requirements:
+# sudo apt install linux-perf
 FLAMEGRAPH_DIR=~/work/FlameGraph
 set -e
 
@@ -20,5 +22,7 @@ $FLAMEGRAPH_DIR/flamegraph.pl --width 1900 --height 24 out.folded > flamegraph.s
 
 if [ -x /usr/bin/mimeopen ]; then
     /usr/bin/mimeopen flamegraph.svg
+else
+    echo "flamegraph.svg was generated successfully. Open it in your favorite browser."
 fi
 
