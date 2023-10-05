@@ -16,7 +16,9 @@ perf script > out.perf
 $FLAMEGRAPH_DIR/stackcollapse-perf.pl out.perf > out.folded
 
 # generate SVG
-$FLAMEGRAPH_DIR/flamegraph.pl out.folded > flamegraph.svg
+$FLAMEGRAPH_DIR/flamegraph.pl --width 1900 --height 24 out.folded > flamegraph.svg
 
-/usr/bin/firefox-esr flamegraph.svg
+if [ -x /usr/bin/mimeopen ]; then
+    /usr/bin/mimeopen flamegraph.svg
+fi
 
