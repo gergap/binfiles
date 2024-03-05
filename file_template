@@ -136,9 +136,10 @@ sub filled_in {
 print filled_in $template_for{$type}();
 
 sub gen_pl_file { <<END_TEMPLATE
-#! /usr/bin/env perl
-
-use 5.020; use warnings; use autodie;
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
 
 
 # implementation here
