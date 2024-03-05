@@ -12,7 +12,7 @@ my %INFO = (
     'MODULE NAME' => $ARGV[0] || "MODULE::NAME",
     'RT NAME'     => $ARGV[0] || "MODULE-NAME",
     'PROJECT'     => $ENV{PROJECT} || "one line to give the program's name and an idea of what it does.",
-    INCLUDEGUARD  => "__FILE_H__",
+    INCLUDEGUARD  => "FILE_H",
     AUTHOR        => 'Gerhard Gappmeier',
     EMAIL         => 'gerhard.gappmeier@ascolab.com',
     EMAIL_PRIV    => 'gappy1502@gmx.net',
@@ -99,7 +99,7 @@ for ($INFO{'RT NAME'}) {
 my ($type) = $INFO{FILENAME} =~ m{$SUFFIX}
     or exit;
 
-$INFO{INCLUDEGUARD} = uc "__$INFO{FILENAME}__";
+$INFO{INCLUDEGUARD} = uc "$INFO{FILENAME}";
 for ($INFO{'INCLUDEGUARD'}) {
     s{\.}{_}g;
 }
