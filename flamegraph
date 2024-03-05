@@ -2,7 +2,7 @@
 # Requirements:
 # sudo apt install linux-perf
 FLAMEGRAPH_DIR=~/work/FlameGraph
-set -e
+set -euxo pipefail
 
 if [ ! -d "$FLAMEGRAPH_DIR" ]; then
     cd ~/work
