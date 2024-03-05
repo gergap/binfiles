@@ -4,7 +4,7 @@
 # You need to setup password-less sudo for wg-quick
 # to make this working.
 # sudo visudo
-# <user> ALL = NOPASSWD: /use/bin/wg-quick
+# <user> ALL = NOPASSWD: /usr/bin/wg-quick
 
 if [ -d /sys/devices/virtual/net/wg0 ]; then
     sudo /usr/bin/wg-quick down wg0
