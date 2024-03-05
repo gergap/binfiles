@@ -56,6 +56,7 @@ else
     mode=`echo "$output" | awk '{ if (NR==3) { print $2 }}'`
     login=`echo "$output" | awk '{ if (NR==2) { print $2 }}'`
     pass=`echo "$output" | awk '{ if (NR==1) { print $1 }}'`
+    otp=`echo "$output" | grep 'otpauth://'`
     if [ -z "$login" ] || [ $passonly -eq 1 ]; then
         # just type the password
         echo "$pass" | xdotool type --clearmodifiers --file -
@@ -67,6 +68,10 @@ else
             echo -e "$pass" | xdotool type --clearmodifiers --file -
         else
             echo -e "$login\t$pass\n" | xdotool type --clearmodifiers --file -
+        fi
+        if [ ! -z "$otp" ]; then
+            sleep 1
+            pass otp "$password" | xdotool type --clearmodifiers --file -
         fi
     fi
 fi
