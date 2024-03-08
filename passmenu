@@ -3,6 +3,13 @@
 # this script is based on the example script from
 # https://tools.suckless.org/dmenu/scripts/
 #
+# Requirements:
+# * dmenu (for DWM)
+# * pass (The UNIX password manager)
+# * xdotool (for typing passwords)
+# * pass-otp (For generating one-time-passwords)
+# * zbar-tools (For scanning QR codes)
+#
 # However, I extended it to type login name and password for
 # simple logins to websites.
 # Therefor the pass entry should look like this:
@@ -26,6 +33,13 @@
 # intercept passwords:
 #  sudo chown root:root passmenu
 #  sudo chmod 755 passmenu
+# OTP: for generating OTP you need to store a line like e.g.
+# otpauth://totp/service.domain.com:username?secret=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&issuer=service.domain.com
+# in the password entry.
+# You can create such in URL by "scanning" a QR code.
+# 1. Scan from PNG: `zbarimg -q --raw qrcode.png | pass otp append mycred`
+# 2. Scan from WebCAM: `zbarimg -q --raw | pass otp append mycred`
+#
 
 shopt -s nullglob globstar
 
