@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Set the GitHub repository URL, PR number, and desired branch name
+REPO_URL="git@github.com:gergap/vim-ollama.git"
+PR_NUMBER=64
+
+if [ $1 -gt 0 ]; then
+    PR_NUMBER=$1
+fi
+BRANCH_NAME="pr-$PR_NUMBER"
+
+# Fetch the pull request
+git fetch origin refs/pull/$PR_NUMBER/head
+
+# Checkout a new branch based on the PR's HEAD commit
+git checkout -b $BRANCH_NAME FETCH_HEAD
+
+echo "Pull request ${PR_NUMBER} checked out as branch ${BRANCH_NAME}"
