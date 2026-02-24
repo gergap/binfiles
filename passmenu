@@ -39,6 +39,7 @@
 # You can create such in URL by "scanning" a QR code.
 # 1. Scan from PNG: `zbarimg -q --raw qrcode.png | pass otp append mycred`
 # 2. Scan from WebCAM: `zbarimg -q --raw | pass otp append mycred`
+# 3. Scan from Screen: `import -silent -window root bmp:- | zbarimg -q --raw - | pass otp append mycred`
 #
 
 shopt -s nullglob globstar
@@ -75,11 +76,12 @@ else
         # just type the password
         echo "$pass" | xdotool type --clearmodifiers --file -
     else
+        sleep 0.5
         # type login <tab> password
         if [ "$mode" == "enter" ]; then
-            echo -e "$login" | xdotool type --clearmodifiers --file -
-            sleep 1
-            echo -e "$pass" | xdotool type --clearmodifiers --file -
+            echo -e "$login\n" | xdotool type --clearmodifiers --file -
+            sleep 2
+            echo -e "$pass\n" | xdotool type --clearmodifiers --file -
         else
             echo -e "$login\t$pass\n" | xdotool type -delay 20 --clearmodifiers --file -
         fi
