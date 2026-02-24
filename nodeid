@@ -5,7 +5,7 @@ use strict;
 use Scalar::Util qw(looks_like_number);
 
 my $nodeid = $ARGV[0];
-my $filename = "$ENV{HOME}/work/devel/embeddedstack-master/src/uabase/identifiers.h";
+my $filename = "$ENV{HOME}/work/embeddedstack-master/src/uabase/identifiers.h";
 
 open(my $fh, $filename) or die("Could not open $filename: $!");
 
