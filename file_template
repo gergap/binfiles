@@ -4,9 +4,11 @@
 use 5.010;
 use warnings;
 use File::Basename;
+use File::Slurp qw(read_file);
 
 my $MODULE_TEMPLATE_FILE = "$ENV{HOME}/.module-starter/PBP/Module.pm";
 
+# Configure the Author information like name and email address
 my %INFO = (
     FILENAME      => $ARGV[0] || "NAME",
     'MODULE NAME' => $ARGV[0] || "MODULE::NAME",
@@ -20,30 +22,21 @@ my %INFO = (
 );
 
 my $SLA = << "EOF";
-/*****************************************************************************
- *                                                                           *
- * Copyright (c) 2006-<YEAR> Unified Automation GmbH. All rights reserved.     *
- *                                                                           *
- * Software License Agreement ("SLA") Version 2.8                            *
- *                                                                           *
- * Unless explicitly acquired and licensed from Licensor under another       *
- * license, the contents of this file are subject to the Software License    *
- * Agreement ("SLA") Version 2.8, or subsequent versions as allowed by the   *
- * SLA, and You may not copy or use this file in either source code or       *
- * executable form, except in compliance with the terms and conditions of    *
- * the SLA.                                                                  *
- *                                                                           *
- * All software distributed under the SLA is provided strictly on an "AS     *
- * IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,       *
- * AND LICENSOR HEREBY DISCLAIMS ALL SUCH WARRANTIES, INCLUDING WITHOUT      *
- * LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR   *
- * PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the SLA for specific   *
- * language governing rights and limitations under the SLA.                  *
- *                                                                           *
- * The complete license agreement can be found here:                         *
- * http://unifiedautomation.com/License/SLA/2.8/                             *
- *                                                                           *
- *****************************************************************************/
+/*******************************************************************************
+ * Licensees holding valid commercial Unified Automation licenses may use this
+ * software in accordance with the terms contained in a written agreement
+ * between you and Unified Automation GmbH. Alternatively, the terms and
+ * conditions that were accepted by the licensee when buying and/or downloading
+ * the software do apply.
+ *
+ * SPDX-FileCopyrightText: Copyright (C) <YEAR> Unified Automation GmbH
+ * SPDX-License-Identifier: LicenseRef-UnifiedAutomation-Commercial
+ *
+ * For the latest licensing terms and conditions, see
+ *    https://license.unified-automation.com/SLA/latest.
+ * For further information use the contact form at
+ *    https://www.unified-automation.com/infoarea/contact.html
+ ******************************************************************************/
 EOF
 
 my $GPL = << "EOF";
@@ -237,8 +230,8 @@ END_TEMPLATE
 
 
 sub gen_pm_file {
-    use Perl6::Slurp;
-    return scalar slurp $MODULE_TEMPLATE_FILE;
+    my $content = read_file($MODULE_TEMPLATE_FILE);
+    return $content;
 }
 
 sub gen_py_file { <<END_TEMPLATE
