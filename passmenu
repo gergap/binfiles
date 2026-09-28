@@ -64,7 +64,10 @@ password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
 if [[ -n ${WAYLAND_DISPLAY:-} ]]; then
-    password=$(printf '%s\n' "${password_files[@]}" | hyprlauncher --quiet --dmenu)
+    # Use the wrapper so the locally built libhyprwire.so.3 (v0.3.0) is loaded
+    # instead of the packaged 0.3.1, which has an ABI mismatch with this
+    # hyprlauncher binary and returns no selection (see ~/.local/src/README.md).
+    password=$(printf '%s\n' "${password_files[@]}" | "$HOME/.local/bin/hyprlauncher" --quiet --dmenu)
 else
     password=$(printf '%s\n' "${password_files[@]}" | dmenu "$@")
 fi
